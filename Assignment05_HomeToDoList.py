@@ -22,19 +22,20 @@
 #Step 6 - Save tasks to the ToDoList.txt file
 # -- Data --#
 # Declare variables and constants
-objFileName = "ToDoList.txt" # An object that represents a file
+objFile = "ToDoList.txt" # An object that represents a file
 strData = "" # A row of text data from the file
 dicRow = {} # A row of data separated into elements of a dictionary {Task,Priority}
 lstTable = [] # A dictionary that acts as a 'table' of rows
 strChoice = "" # Capture the user option selection
 
 #--Processing--#
-objFile = open(objFileName, "r")
-for line in objFile:
-    strData = line.split(",")
+objFile = open(objFile, "r")
+for row in objFile:
+    strData = row.split(",")
     dicRow = {"Task": strData[0].strip(), "Priority": strData[1].strip()}
     lstTable.append(dicRow)
 objFile.close()
+
 while(True):
     print("""
     Menu of Options
@@ -46,11 +47,10 @@ while(True):
 """)
     strChoice = str(input("Which option would you like to perform? [1 to 4]: "))
     if strChoice == '1':
-        print("******The current items ToDo are: *****")
+        print("The current items ToDo are: ")
         for row in lstTable:
-            print(row["Task"] + "(" + row["Priority"] + ")")
-        print("********************************************")
-    continue
+            print(row["Task"] + "(" + row["Priority"] + ")"
+        continue
     elif strChoice == '2' :
         print("ToDo List:")
         strTask = str(input("What is the task? -")).strip()
@@ -58,12 +58,11 @@ while(True):
         dicRow = {"Task": strTask, "Priority": strPriority}
         lstTable.append(dicRow)
         print("Current Data in table:")
-        print("*****The current items ToDo are: *****")
+        print("The current items ToDo are: ")
    for row in lstTable:
        print(row["Task"] + "(" + row["Priority"] + ")")
-       print("*********************************************")
-   continue
-    elif strChoice == '3':
+       continue
+   elif strChoice == '3':
         strKeyToRemove = input("Which TASK would you like removed? - ")
         blnItemRemoved = False
         intRowNumber = 0
@@ -76,24 +75,22 @@ while(True):
         print("The task was removed.")
     else:
         print("I'm sorry, but I could not find that task.")
-    print("*****The current items ToDo are: *****")
+        print("The current items ToDo are: ")
     for row in lstTable:
-        print(row["Task"] + "(" + row["Priority"] + ")")
-        print("*******************************************")
+        print(row["Task"] + "(" + row["Priority"] + ")"
         continue
     elif strChoice == '4':
-    print("*****The current items ToDo are: *****")
+    print("The current items ToDo are: ")
     for row in lstTable:
-        print(row["Task"] + "(" + row["Priority"] + ")")
-    print("**********************************************")
-        if "y" == str(input("Save this data to file? (y/n) -")).strip().lower():
-        objFile = open(objFileName, "w")
+        print(row["Task"] + "(" + row["Priority"] + ")
+        if "y" == str(input("Save this data to file? (y/n) -")).strip().lower():     
+    objFile = open(objFile, "w")
         for row in lstTable:
             objFile.write(row["Task"] + "," + row["Priority"] + "\n")
         objFile.close()
         input("Data saved to file! Press the [Enter] key to return to the menu.")
     else:
         input("New data was NOT saved, but previous data still exists! Press the [Enter] key to return to menu.")
-    continue
+        continue
     elif strChoice == '5':
         break
